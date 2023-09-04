@@ -37,7 +37,9 @@ const display = document.querySelector('.display');
 
 const numBtns = document.querySelectorAll('.number');
 const signBtns = document.querySelectorAll('.sign');
-const equalBtn = document.querySelector('equals');
+const equalBtn = document.querySelector('.equals');
+const clearBtn = document.querySelector('.clear');
+const changeBtn = document.querySelector('.change');
 
 // need listeners for nums, signs, equals, clear, +/-, %
 numBtns.forEach(btn => btn.addEventListener("click", () => {
@@ -62,6 +64,23 @@ signBtns.forEach(btn => btn.addEventListener('click', () => {
       operator = btn.textContent;
     }
 }));
+
+equalBtn.addEventListener('click', () => {
+  if (secondNum !== '') {
+    answer = operate(+firstNum, operator, +secondNum);
+    display.textContent = answer;
+    firstNum = answer;
+    secondNum = '';
+
+  }
+});
+
+clearBtn.addEventListener('click', () => {
+  firstNum = '';
+  operator = '';
+  secondNum = '';
+  display.textContent = '';
+})
 
 
 
