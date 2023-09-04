@@ -66,14 +66,19 @@ signBtns.forEach(btn => btn.addEventListener('click', () => {
     }
 }));
 
+// make equal btn capable of continuing past calculations
 equalBtn.addEventListener('click', () => {
-  if (secondNum !== '') {
+  // not continuing calcs like it should
+  if (display.textContent === answer) {
+    answer = operate(+firstNum, operator, +lastCalc);
+    display.textContent = answer;
+  } else if (secondNum !== '') {
     answer = operate(+firstNum, operator, +secondNum);
     display.textContent = answer;
     firstNum = answer;
+    lastCalc = secondNum;
     secondNum = '';
-
-  }
+  } 
 });
 
 clearBtn.addEventListener('click', () => {
@@ -95,5 +100,15 @@ changeBtn.addEventListener('click', () => {
     secondNum = (0 - secondNum);
     display.textContent = secondNum;
   }
-})
+});
+
+percentBtn.addEventListener('click', () => {
+  if (secondNum === '') {
+    firstNum = firstNum / 10;
+    display.textContent = firstNum;
+  } else {
+    secondNum = secondNum / 10;
+    display.textContent = secondNum;
+  }
+});
 
