@@ -44,6 +44,26 @@ const percentBtn = document.querySelector('.percent');
 
 // need listeners for nums, signs, equals, clear, +/-, %
 numBtns.forEach(btn => btn.addEventListener("click", () => {
+  // add if statement to make sure number isn't too long
+
+  if (btn.textContent === '.') {
+    if (operator === '') {
+      if (firstNum === '') {
+        firstNum += '0';
+        display.textContent = firstNum;
+      } else if (firstNum.includes('.')) {
+        return;
+      }
+    } else {
+      if (secondNum === '') {
+        secondNum += '0';
+        display.textContent = secondNum;
+      } else if (secondNum.includes('.')) {
+        return;
+      }
+    }
+  }
+
   if (operator === '') {
     firstNum += btn.textContent;
     display.textContent = firstNum;
@@ -59,7 +79,7 @@ signBtns.forEach(btn => btn.addEventListener('click', () => {
       operator = btn.textContent;
     } else {
       answer = operate(+firstNum, operator, +secondNum);
-      display.textContent = answer;
+      display.textContent = Math.round(answer * 100000) / 100000;
       firstNum = answer;
       secondNum = '';
       operator = btn.textContent;
@@ -70,13 +90,15 @@ signBtns.forEach(btn => btn.addEventListener('click', () => {
 equalBtn.addEventListener('click', () => {
   // not continuing calcs like it should
   if (display.textContent === answer) {
-    answer = operate(+firstNum, operator, +lastCalc);
-    display.textContent = answer;
+    answer = operate(+firstNum, lastOp, +lastCalc);
+    display.textContent = Math.round(answer * 100000) / 100000;
   } else if (secondNum !== '') {
     answer = operate(+firstNum, operator, +secondNum);
-    display.textContent = answer;
+    display.textContent = Math.round(answer * 100000) / 100000;
     firstNum = answer;
+    lastOp = operator;
     lastCalc = secondNum;
+    operator = '';
     secondNum = '';
   } 
 });
@@ -103,10 +125,10 @@ changeBtn.addEventListener('click', () => {
 });
 
 percentBtn.addEventListener('click', () => {
-  if (secondNum === '') {
+  if (secondNum === '' && firstNum !== '') {
     firstNum = firstNum / 10;
     display.textContent = firstNum;
-  } else {
+  } else if (secondNum !== '') {
     secondNum = secondNum / 10;
     display.textContent = secondNum;
   }
