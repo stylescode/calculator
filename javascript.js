@@ -27,7 +27,6 @@ function operate(a, op, b) {
 
 }
 
-
 let firstNum = '';
 let operator = '';
 let secondNum = '';
@@ -41,24 +40,34 @@ const equalBtn = document.querySelector('.equals');
 const clearBtn = document.querySelector('.clear');
 const changeBtn = document.querySelector('.change');
 const percentBtn = document.querySelector('.percent');
+const bsBtn = document.querySelector('.backspace');
 
-// need listeners for nums, signs, equals, clear, +/-, %
 numBtns.forEach(btn => btn.addEventListener("click", () => {
   // add if statement to make sure number isn't too long
+  if (operator === '') {
+    if (firstNum.toString().length > 10) {
+      return;
+    }
+  } else if (secondNum !== '') {
+    if (secondNum.toString().length > 10) {
+      return;
+    }
+  }
+  // add if statement so digits aren't appended to last answer
 
   if (btn.textContent === '.') {
     if (operator === '') {
       if (firstNum === '') {
         firstNum += '0';
         display.textContent = firstNum;
-      } else if (firstNum.includes('.')) {
+      } else if (firstNum.toString().includes('.')) {
         return;
       }
     } else {
       if (secondNum === '') {
         secondNum += '0';
         display.textContent = secondNum;
-      } else if (secondNum.includes('.')) {
+      } else if (secondNum.toString().includes('.')) {
         return;
       }
     }
@@ -89,7 +98,7 @@ signBtns.forEach(btn => btn.addEventListener('click', () => {
 // make equal btn capable of continuing past calculations
 equalBtn.addEventListener('click', () => {
   // not continuing calcs like it should
-  if (display.textContent === answer) {
+  if (display.textContent === Math.round(answer * 100000) / 100000) {
     answer = operate(+firstNum, lastOp, +lastCalc);
     display.textContent = Math.round(answer * 100000) / 100000;
   } else if (secondNum !== '') {
@@ -134,3 +143,20 @@ percentBtn.addEventListener('click', () => {
   }
 });
 
+bsBtn.addEventListener('click', () => {
+  if (firstNum !== '' && secondNum === '') {
+    if (firstNum.toString().length === 1) {
+      firstNum = '';
+    } else {
+      firstNum = +(firstNum.toString().slice(0, -1));
+    }
+    display.textContent = firstNum;
+  } else if (secondNum !== '') {
+    if (secondNum.toString().length === 1) {
+      secondNum = '';
+    } else {
+      secondNum = +(secondNum.toString().slice(0, -1));
+    }
+    display.textContent = secondNum;
+  }
+})
