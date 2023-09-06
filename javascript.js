@@ -43,24 +43,29 @@ const changeBtn = document.querySelector('.change');
 const percentBtn = document.querySelector('.percent');
 const bsBtn = document.querySelector('.backspace');
 
-numBtns.forEach(btn => btn.addEventListener("click", () => {
-  // add if statement to make sure number isn't too long
-  if (operator === '') {
-    if (firstNum.toString().length > 10) {
-      return;
+// make sure number isn't too long
+function tooLong() {
+  if (operator === '' && firstNum.toString().length > 10) {
+    if (firstNum !== answer) {
+      return true;
     }
-  } else if (secondNum !== '') {
-    if (secondNum.toString().length > 10) {
-      return;
-    }
+  } else if (secondNum.toString().length > 10) {
+    return true;
+  } else {
+    return false;
   }
-  // add if statement so digits aren't appended to last answer
+}
+
+numBtns.forEach(btn => btn.addEventListener("click", () => {
+  if (tooLong()) {
+    return;
+  }
 
   // make sure only one decimal per number
   if (btn.textContent === '.') {
     if (operator === '') {
-      if (firstNum === '') {
-        firstNum += '0';
+      if (firstNum === '' || firstNum === answer) {
+        firstNum = '0';
         display.textContent = firstNum;
       } else if (firstNum.toString().includes('.')) {
         return;
@@ -111,7 +116,7 @@ equalBtn.addEventListener('click', () => {
     display.textContent = Math.round(answer * 100000) / 100000;
     firstNum = answer;
     lastOp = operator;
-    lastCalc = secondNum;
+    lastCalc = +secondNum;
     operator = '';
     secondNum = '';
   } 
@@ -166,7 +171,7 @@ bsBtn.addEventListener('click', () => {
   }
 })
 
-// listener to add keyboard support
+// keyboard support
 
 window.addEventListener('keydown', (e) => {
   allBtns.forEach(btn => {
