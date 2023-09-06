@@ -34,6 +34,7 @@ let answer = '';
 
 const display = document.querySelector('.display');
 
+const allBtns = document.querySelectorAll('.button');
 const numBtns = document.querySelectorAll('.number');
 const signBtns = document.querySelectorAll('.sign');
 const equalBtn = document.querySelector('.equals');
@@ -55,6 +56,7 @@ numBtns.forEach(btn => btn.addEventListener("click", () => {
   }
   // add if statement so digits aren't appended to last answer
 
+  // make sure only one decimal per number
   if (btn.textContent === '.') {
     if (operator === '') {
       if (firstNum === '') {
@@ -74,6 +76,9 @@ numBtns.forEach(btn => btn.addEventListener("click", () => {
   }
 
   if (operator === '') {
+    if (firstNum === answer) {
+      firstNum = '';
+    }
     firstNum += btn.textContent;
     display.textContent = firstNum;
   } else {
@@ -148,15 +153,41 @@ bsBtn.addEventListener('click', () => {
     if (firstNum.toString().length === 1) {
       firstNum = '';
     } else {
-      firstNum = +(firstNum.toString().slice(0, -1));
+      firstNum = (firstNum.toString().slice(0, -1));
     }
     display.textContent = firstNum;
   } else if (secondNum !== '') {
     if (secondNum.toString().length === 1) {
       secondNum = '';
     } else {
-      secondNum = +(secondNum.toString().slice(0, -1));
+      secondNum = (secondNum.toString().slice(0, -1));
     }
     display.textContent = secondNum;
   }
 })
+
+// listener to add keyboard support
+
+window.addEventListener('keydown', (e) => {
+  allBtns.forEach(btn => {
+    if ((btn.textContent === e.key) ||
+        (btn.textContent === 'x' && e.key === '*') ||
+        (btn.textContent === '<-' && e.key === 'Backspace') ||
+        (btn.textContent === 'A/C' && e.key === 'Escape') ||
+        (btn.textContent === '+/-' && e.key === ' ') ||
+        (btn.textContent === '=' && e.key === 'Enter')) {
+      btn.click();
+    }
+})
+})
+
+// create function to highlight active sign btns
+
+
+
+/*
+window.addEventListener('keydown', (e) => {
+  console.log(e);
+})
+
+*/
