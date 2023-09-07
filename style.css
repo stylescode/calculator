@@ -17,16 +17,16 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 580px;
+  height: 570px;
   padding: 8px;
-  width: 380px;
-  border-radius: 20px;
+  width: 374px;
+  border-radius: 8px;
   justify-content: space-evenly;
 }
 
 .display {
   background-color: #979097;
-  border: 4px solid rgb(48, 48, 48);
+  border: 1px solid rgb(48, 48, 48);
   border-radius: 6px;
   color: white;
   font-family: 'Saira Extra Condensed', sans-serif;
@@ -53,9 +53,9 @@ body {
   font-size: 30px;
   font-weight: 900;
   padding: 10px;
-  height: 85px;
+  height: 87px;
   transition: 0.1s;
-  width: 85px;
+  width: 87px;
 }
 
 .button:active {
