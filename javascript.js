@@ -160,7 +160,7 @@ changeBtn.addEventListener('click', () => {
   }
 });
 
-percentBtn.addEventListener('click', () => {
+percentBtn.addEventListener('click', (e) => {
   if (secondNum === '' && firstNum !== '') {
     firstNum = firstNum / 10;
     display.textContent = firstNum;
@@ -168,9 +168,10 @@ percentBtn.addEventListener('click', () => {
     secondNum = secondNum / 10;
     display.textContent = secondNum;
   }
+  transition(e)
 });
 
-bsBtn.addEventListener('click', () => {
+bsBtn.addEventListener('click', (e) => {
   if (firstNum !== '' && secondNum === '') {
     if (firstNum.toString().length === 1) {
       firstNum = '';
@@ -193,7 +194,7 @@ window.addEventListener('keydown', (e) => {
   allBtns.forEach(btn => {
     if ((btn.textContent === e.key) ||
         (btn.textContent === 'x' && e.key === '*') ||
-        (btn.textContent === '<-' && e.key === 'Backspace') ||
+        (btn.classList.contains('backspace') && e.key === 'Backspace') ||
         (btn.textContent === 'A/C' && e.key === 'Escape') ||
         (btn.textContent === '+/-' && e.key === ' ') ||
         (btn.textContent === '=' && e.key === 'Enter')) {
