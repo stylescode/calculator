@@ -189,7 +189,6 @@ bsBtn.addEventListener('click', () => {
 })
 
 // keyboard support
-
 window.addEventListener('keydown', (e) => {
   allBtns.forEach(btn => {
     if ((btn.textContent === e.key) ||
@@ -199,17 +198,14 @@ window.addEventListener('keydown', (e) => {
         (btn.textContent === '+/-' && e.key === ' ') ||
         (btn.textContent === '=' && e.key === 'Enter')) {
       btn.click();
+      transition(btn);
     }
 })
 })
 
-// create function to highlight active sign btns
-
-
-
-/*
-window.addEventListener('keydown', (e) => {
-  console.log(e);
-})
-
-*/
+function transition(element) {
+  element.classList.toggle('changed');
+  element.addEventListener('transitionend', () => {
+    element.classList.remove('changed');
+  })
+}

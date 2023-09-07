@@ -48,8 +48,9 @@ body {
   font-size: 20px;
   font-weight: 900;
   padding: 10px;
-  height: 55px;
-  width: 55px;
+  height: 60px;
+  transition: 0.1s;
+  width: 60px;
 }
 
 .button:active {
@@ -70,4 +71,8 @@ body {
 .highlight {
   background-color: red;
   border: 2px solid rgb(255, 109, 109);
+}
+
+.changed {
+  scale: 0.9;
 }
