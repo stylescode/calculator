@@ -56,11 +56,7 @@ body {
 }
 
 .button:active {
-  background-color: rgb(250, 162, 177);
-}
-
-.operator:hover {
-  background-color: rgb(250, 162, 177);
+  scale: 0.9;
 }
 
 .operator, .equals {

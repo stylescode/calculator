@@ -104,26 +104,24 @@ numBtns.forEach(btn => btn.addEventListener("click", () => {
 ));
 
 signBtns.forEach(btn => btn.addEventListener('click', () => {
-    if (operator === btn.textContent) {
-      removeHighlight();
-      operator = '';
-    } else if (operator === '' || secondNum === '') {
+    if (secondNum !== '' ) {
+      answer = operate(+firstNum, operator, +secondNum);
+      display.textContent = Math.round(answer * 100000) / 100000;
+      firstNum = answer;
+      operator = btn.textContent;
+      secondNum = '';
+      addHighlight(btn);
+    } else if (firstNum !== '') {
       operator = btn.textContent;
       removeHighlight();
       addHighlight(btn);
     } else {
-      addHighlight(btn);
-      answer = operate(+firstNum, operator, +secondNum);
-      display.textContent = Math.round(answer * 100000) / 100000;
-      firstNum = answer;
-      secondNum = '';
-      operator = btn.textContent;
+      return;
     }
 }));
 
 // make equal btn capable of continuing past calculations
 equalBtn.addEventListener('click', () => {
-  // not continuing calcs like it should
   if (display.textContent === Math.round(answer * 100000) / 100000) {
     answer = operate(+firstNum, lastOp, +lastCalc);
     display.textContent = Math.round(answer * 100000) / 100000;
