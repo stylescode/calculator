@@ -18,7 +18,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 410px;
-  width: 280px;
+  width: 276px;
   border-radius: 6px;
   justify-content: space-evenly;
 }
@@ -58,11 +58,16 @@ body {
 
 .operator, .equals {
   background-color: rgb(0, 0, 240);
-  border: 2px solid rgb(47, 189, 255);
+  border: 2px solid rgb(15, 179, 255);
 
 }
 
 .other {
   background-color: green;
-  border: 2px solid rgb(25, 245, 80);
+  border: 2px solid rgb(12, 235, 68);
+}
+
+.highlight {
+  background-color: red;
+  border: 2px solid rgb(255, 109, 109);
 }

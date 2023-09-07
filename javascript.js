@@ -56,6 +56,15 @@ function tooLong() {
   }
 }
 
+function addHighlight(element) {
+  element.classList.add('highlight');
+}
+
+function removeHighlight() {
+  let highlights = document.querySelectorAll('.highlight');
+  highlights.forEach(element => element.classList.remove('highlight'));
+}
+
 numBtns.forEach(btn => btn.addEventListener("click", () => {
   if (tooLong()) {
     return;
@@ -89,14 +98,21 @@ numBtns.forEach(btn => btn.addEventListener("click", () => {
   } else {
     secondNum += btn.textContent;
     display.textContent = secondNum;
+    removeHighlight();
   }
   }
 ));
 
 signBtns.forEach(btn => btn.addEventListener('click', () => {
-    if (operator === '' || secondNum === '') {
+    if (operator === btn.textContent) {
+      removeHighlight();
+      operator = '';
+    } else if (operator === '' || secondNum === '') {
       operator = btn.textContent;
+      removeHighlight();
+      addHighlight(btn);
     } else {
+      addHighlight(btn);
       answer = operate(+firstNum, operator, +secondNum);
       display.textContent = Math.round(answer * 100000) / 100000;
       firstNum = answer;
@@ -127,6 +143,7 @@ clearBtn.addEventListener('click', () => {
   operator = '';
   secondNum = '';
   display.textContent = '';
+  removeHighlight();
 })
 
 changeBtn.addEventListener('click', () => {
