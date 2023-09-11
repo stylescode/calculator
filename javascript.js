@@ -160,10 +160,10 @@ changeBtn.addEventListener('click', () => {
 
 percentBtn.addEventListener('click', (e) => {
   if (secondNum === '' && firstNum !== '') {
-    firstNum = firstNum / 10;
+    firstNum = firstNum / 100;
     display.textContent = firstNum;
   } else if (secondNum !== '') {
-    secondNum = secondNum / 10;
+    secondNum = secondNum / 100;
     display.textContent = secondNum;
   }
   transition(e)
